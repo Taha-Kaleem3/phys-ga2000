@@ -9,7 +9,7 @@ def gaussian(xrange, mean = 0, stddev = 1):
     return np.exp(-np.power(np.subtract(xrange, mean),2)/(np.multiply(2,stddev**2)))
 
 # plotting 50 x and y values of the gaussian
-xrange = np.linspace(-10,11, 50)
+xrange = np.linspace(-10,10, 50, endpoint = True)
 yrange = gaussian(xrange, mean = 0, stddev= 3)
 
 #Plotting and saving using matplotlib
