@@ -1,5 +1,4 @@
 import numpy as np
-print("the binary value of the representation is ")
 #problem 3.40282*10^38 for problem 2
 def get_bits(number):
     """For a NumPy quantity, return bit representation, this is done using the IEEE 754 standard 
@@ -45,14 +44,43 @@ def get_representation(value):
        "mantissa": mantissa}
 
     return template
+# def mantissaDecimal(mantissa, exponent):
+#     """
+#     For a binary mantissa and exponent value in a list form, ie, [1, 0, 1, 0, 0, 0, ...] return the 
+#     value given if it were an IEEE 754 mantissa and an exponent
+    
+#     Inputs:
+#     ------
+#     mantissa : list[int]
+#     exponent : list[int]
+        
+#     Returns:
+#     -------
+#     integer
+    
+#     """
+#     sum = 0
+#     for i in range(len(mantissa)):
+#         f = np.flip(mantissa)
+#         sum += f[i]*2**(exponent-i)
+#     return sum
 
-print(get_representation(100.98763))
-for value in [100.98763]:
-    bitlist=get_bits(value)
-    sign = bitlist[0]
-    exponent = bitlist[1:9]
-    mantissa = bitlist[9:32]
-    template = {"value": value,
-       "sign" : sign, 
-       "exponent": exponent, 
-       "mantissa": mantissa}
+
+representation = get_representation(100.98763)
+print(representation)
+# exponent = int(int(int(''.join(str(item) for item in representation["exponent"]), 2)))-127
+# # value = int(int(int(''.join(str(item) for item in representation["mantissa"]), 2)))
+# value = mantissaDecimal(representation["mantissa"], exponent)
+
+# print(value)
+
+
+# for value in [100.98763]:
+#     bitlist=get_bits(value)
+#     sign = bitlist[0]
+#     exponent = bitlist[1:9]
+#     mantissa = bitlist[9:32]
+#     template = {"value": value,
+#        "sign" : sign, 
+#        "exponent": exponent, 
+#        "mantissa": mantissa}
