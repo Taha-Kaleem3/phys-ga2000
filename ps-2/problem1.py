@@ -44,43 +44,42 @@ def get_representation(value):
        "mantissa": mantissa}
 
     return template
-# def mantissaDecimal(mantissa, exponent):
-#     """
-#     For a binary mantissa and exponent value in a list form, ie, [1, 0, 1, 0, 0, 0, ...] return the 
-#     value given if it were an IEEE 754 mantissa and an exponent
+def mantissaDecimal(mantissa, exponent):
+    """
+    For a binary mantissa and exponent value in a list form, ie, [1, 0, 1, 0, 0, 0, ...] return the 
+    value given if it were an IEEE 754 mantissa and an exponent
     
-#     Inputs:
-#     ------
-#     mantissa : list[int]
-#     exponent : list[int]
+    Inputs:
+    ------
+    mantissa : list[int]
+    exponent : list[int]
         
-#     Returns:
-#     -------
-#     integer
+    Returns:
+    -------
+    integer
     
-#     """
-#     sum = 0
-#     for i in range(len(mantissa)):
-#         f = np.flip(mantissa)
-#         sum += f[i]*2**(exponent-i)
-#     return sum
+    """
+    sum = np.float64(1)
+    for i in range(len(mantissa)):
+        f = np.flip(mantissa)
+        
+        sum += f[22-i]*2**(-i-1)
+    return sum
 
-
+#initial value we want to convert to ieee representation
+init = 100.98763
+#ieee representation of the number
 representation = get_representation(100.98763)
+print("ieee representation:" )
 print(representation)
-# exponent = int(int(int(''.join(str(item) for item in representation["exponent"]), 2)))-127
-# # value = int(int(int(''.join(str(item) for item in representation["mantissa"]), 2)))
-# value = mantissaDecimal(representation["mantissa"], exponent)
 
-# print(value)
+#Finding exponent and value of representation
+exponent = int(int(int(''.join(str(item) for item in representation["exponent"]), 2)))-127
+value = mantissaDecimal(representation["mantissa"], exponent)
 
+#converting representation to a decimal value and finding the percent differencce from the initial
+bintoDec = value*2**exponent
+print("conversion from binary representation to decimal:" + str(bintoDec))
+percentdifference = 100*np.abs(bintoDec-init)/init
 
-# for value in [100.98763]:
-#     bitlist=get_bits(value)
-#     sign = bitlist[0]
-#     exponent = bitlist[1:9]
-#     mantissa = bitlist[9:32]
-#     template = {"value": value,
-#        "sign" : sign, 
-#        "exponent": exponent, 
-#        "mantissa": mantissa}
+print("percent difference: " +str(percentdifference))
