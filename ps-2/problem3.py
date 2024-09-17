@@ -8,25 +8,35 @@ e0 = 8.85418782 * 10 ** -12 # permittivity of free space (m^-3 kg^-1 s^4 A^2)
 Without for loop
 """
 def Vijk(i,j,k):
-
     if(i == 0 and j == 0 and k == 0):
         return 0
     sign = (-1) ** ((i+j+k)+1)
     val = e/(4*np.pi*e0*a*np.sqrt(i**2+j**2+k**2))
     return sign * val
 
+def VijkMask(i,j,k, zeroMask):
+    i = i[zeroMask]
+    j = j[zeroMask] 
+    k = k[zeroMask]
+    sign = (-1) ** ((i+j+k)+1)
+    val = e/(4*np.pi*e0*a*np.sqrt(i**2+j**2+k**2))
+    return sign * val
+
 def Vtot(L):
-    matrixFunVijk = np.vectorize(Vijk)
+    # matrixFunVijk = np.vectorize(Vijk)
     ijkcoords = np.linspace(-L, L, 2*L+1)
     i, j, k = np.meshgrid(ijkcoords, ijkcoords, ijkcoords)
-    result = matrixFunVijk(i, j, k)
+    zeroMask =  (i != 0) |  (j != 0) |  (k != 0)
+
+
+    result = VijkMask(i, j, k, zeroMask)
     sum = np.sum(result)
     return sum
 
 def Madelung(L):
     return Vtot(L)*(4*np.pi*e0*a/e)
 
-n = 100
+n = 200
 madelung = Madelung(n)
 print(f"Madelung constant: {madelung}")
 
