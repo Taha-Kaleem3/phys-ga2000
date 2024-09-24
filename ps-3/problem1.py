@@ -41,19 +41,32 @@ dimensions = np.arange(start = 0, stop = N, dtype=int)
 multTimeDot = np.zeros(len(dimensions))
 multTimeExpl = np.zeros(len(dimensions))
 
+N3 = dimensions ** 3
 
+# CDot = []
+# CExpl = []
 
 for n in dimensions:
     multTimeExpl[n] = timeit.timeit(lambda: matrixMultExplicit(n), number = 1)
     multTimeDot[n] = timeit.timeit(lambda: matrixMultDot(n), number = 1)
-
+    # if (n != 0):
+    #     CDot.append(multTimeDot[n]/ (n** 3))
+    #     CExpl.append(multTimeExpl[n]/ (n ** 3))
+    # else:
+    #     CDot.append(0)
+    #     CExpl.append(0)
 
 fig, axes = plt.subplots(1, 2, figsize = (16, 8))
 
-
+# CDotMean = np.mean(np.array(CDot))
+# CExplMean = np.mean(np.array(CExpl))
 
 axes[0].scatter(dimensions, multTimeDot)
 axes[1].scatter(dimensions, multTimeExpl)
+
+
+# axes[0].plot(dimensions, CDotMean * N3, label = "N^3")
+# axes[1].plot(dimensions, CExplMean * N3, label = "N^3")
 
 axes[0].set_title("Dot function multiplication")
 axes[1].set_title("Explicit function multiplication")
