@@ -2,7 +2,7 @@ from random import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-NbigBi = 100000
+NbigBi = 10000
 NTi = 0
 NBi = 0
 NPb = 0
@@ -17,7 +17,7 @@ pPb2Bi = 1 - 2 ** (-h/Pbtau)# Decay of lead 209 atom
 pTi2Pb = 1 - 2 ** (-h/Titau)# Decay of Ti 209 atom
 pBigBi2Ti = 1 - 2 ** (-h/BigBiTau)# Decay of Bi 213 atom
 
-tmax = 5000
+tmax = 10000
 
 tpoints = np.arange(0, tmax, h)
 
@@ -101,7 +101,7 @@ axes[3].set_ylabel("Number of atoms")
 axes[3].legend()
 
 axes[4].plot(tpoints, Tipoints, label = "209 Ti")
-axes[4].set_title("209 Ti count")
+axes[4].set_title("209 Tl count")
 axes[4].set_xlabel("Time (s)")
 # ax[4]es[1].set_xlabel("Time (s)")2
 axes[4].set_ylabel("Number of atoms")
