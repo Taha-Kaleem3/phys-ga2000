@@ -39,25 +39,42 @@ def plot_cv(wp, xp):
 T, cV = plot_cv(wp, xp)
 
 fig, ax = plt.subplots()
-
 ax.plot(T, cV)
+
+ax.set_title("Heat capacity vs temperature")
+ax.set_xlabel("Temperature (K)")
+ax.set_ylabel("Heat Capacity (J/K)")
+
+
 plt.savefig("ps-4/plots/heatCapacity")
 
 N_list = [10, 20, 30, 40, 50, 60, 70]
 
-xpwp = []
-Ts = []
-cVs = []
+xps = []
+wps = []
+cvs = []
+
+
+T= 25
+Ts = T * np.ones(len(N_list))
+cVs = const_Cv(V, rho, theta, kb, Ts)
 for n in N_list:
-    xpwp.append(np.polynomial.legendre.leggauss(n))
-    T, cV = plot_cv(np.polynomial.legendre.leggauss(n), xp)
-    Ts.append(T)
-    cVs.append(cV)
+    xp, wp = np.polynomial.legendre.leggauss(n)
+    xps.append(xp)
+    wps.append(wp)
+
+for i in range(len(N_list)):
+    cvs.append(cv(Ts[i], wps[i], xps[i]))
+
+
 
 fig, ax = plt.subplots()
-for i in range(len(N_list)):
-    ax.plot(Ts[i], cV[i], label = N_list[i])
 
+ax.scatter(N_list, cvs, label = f"{T} K")
+ax.set_title("Convergence of different N")
+ax.set_xlabel("N value")
+ax.set_ylabel("heat capacity (J/K)")
 ax.legend()
+
 
 plt.savefig("ps-4/plots/heatCapacityConvergence")
