@@ -29,7 +29,7 @@ def T(a, wp, xp):
 def plot_T_a():
     Ts = []
     ass = []
-    for a in range(20):
+    for a in np.arange(0, 2, 0.01):
         ass.append(a)
         Ts.append( T(a, wp, xp))
 
@@ -38,7 +38,7 @@ def plot_T_a():
 ass, Ts = plot_T_a()
 
 fig, ax = plt.subplots()
-ax.plot(Ts, ass)
+ax.plot(ass, Ts)
 ax.set_title("Anharmonic Oscillator")
 ax.set_xlabel("amplitude")
 ax.set_ylabel("Period")
