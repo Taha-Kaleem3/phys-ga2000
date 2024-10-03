@@ -55,7 +55,7 @@ wps = []
 cvs = []
 
 
-T= 25
+T= 1
 Ts = T * np.ones(len(N_list))
 cVs = const_Cv(V, rho, theta, kb, Ts)
 for n in N_list:
