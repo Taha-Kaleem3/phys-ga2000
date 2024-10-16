@@ -15,12 +15,12 @@ print("Signal array:", signal)
 
 plt.scatter(time, signal)
 plt.savefig("ps-5/plots/signal")
-
+tp = (time - time.mean())/time.std()
 A = np.zeros((len(time), 4))
 A[:, 0] = 1.
-A[:, 1] = time 
-A[:, 2] = time**2
-A[:, 3] = time**3
+A[:, 1] = tp 
+A[:, 2] = tp**2
+A[:, 3] = tp**3
 
 (u, w, vt) = np.linalg.svd(A, full_matrices=False)
 weff = np.where(w != 0, w, np.inf)
@@ -50,11 +50,11 @@ ax.set_ylabel("residuals")
 plt.savefig("ps-5/plots/residuals")
 print(f"std of residuals: {np.std(residuals)}")
 
-
-poly = 8
+# time = time - time.mean()/time.std()
+poly = 20
 A = np.zeros((len(time), poly))
 for p in range(poly):
-    A[:, p] = time ** p
+    A[:, p] = tp ** p
 
 
 (u, w, vt) = np.linalg.svd(A, full_matrices=False)
@@ -68,7 +68,7 @@ teff = ainv.dot(signal)
 signaleff = A.dot(teff)
 fig, ax = plt.subplots()
 ax.scatter(time, signal, label = "raw data")
-ax.scatter(time, signaleff, label = "8th order fit")
+ax.scatter(time, signaleff, label = f"{poly}th order fit")
 ax.set_xlabel("time")
 ax.set_ylabel("signal")
 ax.legend()
@@ -88,9 +88,9 @@ print(f"std of residuals: {np.std(residuals)}")
 
 
 # poly = 5
-harmonicNumber = 500
+harmonicNumber = 4
 A = np.zeros((len(time), 2*harmonicNumber+1))
-period = time.max()/3
+period = time.max()/2
 omega = 2*np.pi/period
 
 for i in range(harmonicNumber):
@@ -101,7 +101,7 @@ A[:, harmonicNumber*2] = 1
 
 (u, w, vt) = np.linalg.svd(A, full_matrices=False)
 weff = np.where(w != 0, w, np.inf)
-conditionNumber = weff.max()/w.min()
+conditionNumber = w.max()/w.min()
 print(f"condition number of sinuosoidal series: {conditionNumber}")
 ainv = vt.transpose().dot(np.diag(1. / weff)).dot(u.transpose())
 # ainv = np.linalg.pinv(A)
