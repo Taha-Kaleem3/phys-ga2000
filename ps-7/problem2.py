@@ -32,7 +32,7 @@ def golden_step(func=None, astart=None, bstart=None, cstart=None, tol=1.e-5):
     return x
 
 
-def brents_method(f, left, right, tol=1e-10, max_iter=10000):
+def brents_method(f, left, right, tol=1e-10, max_iter=1000):
     a = left
     c = right
     b = (left+right)/2
@@ -55,13 +55,12 @@ def brents_method(f, left, right, tol=1e-10, max_iter=10000):
             a = newBound
     return b
 
-# Example usage:
-# Define the function to minimize
+
 def f(x):
     return (x - 0.3) ** 2 *np.exp(x)
 
 # Minimize f(x) on the interval [0, 4]
 xmin = brents_method(f, 0, 4)
 scipymin = brent(f, brack = (0, 4))
-print(f"Minimum at x = {xmin}")
-print(f"scipy min at x = {scipymin}")
+print(f"Minimum at x = {xmin} with value f(x) = {f(xmin)}")
+print(f"scipy min at x = {scipymin} with value f(x) = {f(scipymin)}")
