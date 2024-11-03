@@ -39,7 +39,7 @@ result = optimize.minimize(
     tol=1e-6
 )
 print(f"result {result}")
-# Extract optimal parameters, covariance, and standard errors
+# Extract optimal  parameters, covariance, and standard errors
 optimal_params = result.x
 hessian_matrix = negloglike_hessian(optimal_params, ages, reco)
 covariance_matrix = np.linalg.inv(hessian_matrix)
@@ -47,7 +47,7 @@ standard_errors = np.sqrt(np.diag(covariance_matrix))
 
 # Print results
 print("Optimal parameters (beta0, beta1):", optimal_params)
-print("Covariance matrix:\n", covariance_matrix)
+print("Covariance matrix:", covariance_matrix)
 print("Standard errors:", standard_errors)
 
 # Get the indices that would sort the ages array
