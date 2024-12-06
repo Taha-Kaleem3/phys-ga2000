@@ -3,11 +3,11 @@ from banded import banded
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-from vpython import sphere,rate
+# from vpython import sphere,rate
 from math import cos,sin,pi
 from numpy import arange
-from vpython import sphere, vector, rate, canvas
-from vpython import sphere, curve, vector, rate
+# from vpython import sphere, vector, rate, canvas
+# from vpython import sphere, curve, vector, rate
 import numpy as np
 from scipy.fftpack import dst, idst
 # Constants used
