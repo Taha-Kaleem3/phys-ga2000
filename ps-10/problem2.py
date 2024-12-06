@@ -49,11 +49,10 @@ def psi_real_t(t):
     Compute the real part of the wavefunction at time t.
     """
     k = np.arange(0, N)  # Mode indices
-    E_k = (np.pi**2 * hbar**2 * k**2) / (2 * M * L**2)  # Energy levels
+    E_k = -(np.pi**2 * hbar**2 * k**2) / (2 * M * L**2)  # Energy levels
     coeff = (a_k * np.cos(E_k * t / hbar) - n_k * np.sin(E_k * t / hbar)) * np.sin(np.pi * k * a /N)
 
     psi = idst(coeff, type=1) / a
-    # A = np.sum(psi)
     A = np.sqrt(np.sum(psi ** 2))
     psi_norm = psi/A
 
@@ -85,7 +84,7 @@ line_real, = ax1.plot(x, np.real(psi_0), color='blue')
 ax1.set_title("Real part of the wavefunction")
 ax1.set_xlabel("x")
 ax1.set_ylabel("Real(ψ)")
-ax1.set_ylim(-1, 1)
+ax1.set_ylim(-0.5, 0.5)
 
 # line_imag, = ax2.plot(x, np.imag(psi_0), color='red')
 # ax2.set_title("Imaginary part of the wavefunction")

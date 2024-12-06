@@ -42,6 +42,9 @@ for i in range(N-1):
     A[2, i] = a2      # Lower diagonal
 A[1, N - 1] = a1      # Last diagonal element
 psi_0 = np.exp(-((x - x0) ** 2 )/ (2* sigma ** 2)) * np.exp(1j * K * x)
+# norm = np.sqrt(np.sum(psi_0 ** 2))
+# psi_0 = psi_0/norm
+
 
 def crank_nicholson_step(psi_0, A, up, down):
     v = np.zeros_like(psi_0, dtype = complex)
